@@ -1,7 +1,7 @@
 import os
 import shutil
-import sys
 from src.logger import log_command
+
 
 def rm(arguments):
     """
@@ -16,7 +16,6 @@ def rm(arguments):
         return "rm: Missing operand"
     recursive = False
     targets = []
-    # Парсим аргументы
     i = 0
     while i < len(arguments):
         if arguments[i] == "-r":
@@ -26,18 +25,17 @@ def rm(arguments):
         i += 1
     for target in targets:
         try:
-            # Проверка на запрещённые пути
             abs_target = os.path.abspath(target)
             if abs_target == "/" or abs_target == os.path.abspath(".."):
                 print(f"rm: Refusing to remove '{target}': it is dangerous")
                 log_command('', False, f"rm: Refusing to remove '{target}': it is dangerous")
                 continue
             if not os.path.exists(target):
-                print(f"rm: cannot remove '{target}': No such file or directory")
+                print(f"rm: Cannot remove '{target}': No such file or directory")
                 log_command('', False, f"rm: cannot remove '{target}': No such file or directory")
                 continue
             if os.path.isdir(target) and not recursive:
-                print(f"rm: cannot remove '{target}': is a directory (use -r to remove directories)")
+                print(f"rm: Cannot remove '{target}': is a directory (use -r to remove directories)")
                 log_command('', False, f"rm: cannot remove '{target}': is a directory (use -r to remove directories)")
                 continue
             if os.path.isdir(target) and recursive: # Если это каталог и есть -r - запрашиваем подтверждение

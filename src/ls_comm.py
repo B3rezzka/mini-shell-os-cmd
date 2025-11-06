@@ -1,8 +1,7 @@
-import sys
 import os
 import os.path
 from datetime import datetime
-
+import pwd
 
 def ls(arguments):
     """
@@ -86,7 +85,6 @@ def get_user_group_names(uid, gid):
     Если не удалось - возвращает (uid, gid) как строки.
     """
     try:
-        import pwd
         user_name = pwd.getpwuid(uid).pw_name
     except (ImportError, KeyError):
         user_name = str(uid)  # если не удалось — оставляем ID

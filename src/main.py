@@ -1,5 +1,6 @@
 import os
 import sys
+import shlex
 import src.ls_comm as l
 import src.cd_comm as c
 import src.cp_comm as k
@@ -58,7 +59,7 @@ def main() -> None:
             if not request:
                 continue
             log_command(request, success=True)
-            command_handler(request.strip().split())
+            command_handler(shlex.split(request))
         except EOFError:
             print()  # новая строка при Ctrl+D
             break

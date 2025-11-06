@@ -1,6 +1,7 @@
 import os
 from src.logger import log_command
 
+
 def cd(commands = ['cd']):
     """
     Команда cd: переход в указанный каталог.
@@ -24,6 +25,7 @@ def cd(commands = ['cd']):
         print(f"cd: Permission denied: {target}")
         return f"cd: Permission denied: {target}"
 
+
 def cat(arguments):
     """
     Команда cat: выводит содержимое файла в консоль.
@@ -36,21 +38,14 @@ def cat(arguments):
         try:
             if os.path.isdir(filepath):
                 print(f"cat: {filepath}: Is a directory")
-                log_command('', False, f"cat: {filepath}: Is a directory")
-                continue
-
-            # Проверяем существование файла
-            if not os.path.exists(filepath):
+                return f"cat: {filepath}: Is a directory"
+            if not os.path.exists(filepath): # Проверяем существование файла
                 print(f"cat: {filepath}: No such file or directory")
-                log_command('', False, f"cat: {filepath}: No such file or directory")
-                continue
-
-            # Читаем и выводим содержимое файла
-            with open(filepath, 'r', encoding='utf-8') as f:
+                return f"cat: {filepath}: No such file or directory"
+            with open(filepath, 'r', encoding='utf-8') as f: # Читаем и выводим содержимое файла
                 content = f.read()
                 print(content, end='')  # end='' чтобы не добавлять лишний перевод строки
                 return None
-
         except PermissionError:
             print(f"cat: {filepath}: Permission denied")
             return f"cat: {filepath}: Permission denied"
