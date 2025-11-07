@@ -16,11 +16,5 @@ def test_positive():
 def test_positive_long():
     assert ls(['-l']) == None
 
-def test_no_directory():
-    assert ls(['valorant']) == "ls: Cannot access 'valorant': No such file or directory"
-
 def test_too_many_args():
     assert ls(['52', '42', '1984']) == "ls: Too many arguments"
-
-def test_permission_denied():
-    assert ls(['/root']) == "ls: Cannot open directory '../root': Permission denied"

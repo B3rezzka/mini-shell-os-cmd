@@ -1,5 +1,4 @@
 import os
-from src.logger import log_command
 
 
 def cd(commands = ['cd']):
