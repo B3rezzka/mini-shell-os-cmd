@@ -28,16 +28,13 @@ def rm(arguments):
             abs_target = os.path.abspath(target)
             if abs_target == "/" or abs_target == os.path.abspath(".."):
                 print(f"rm: Refusing to remove '{target}': it is dangerous")
-                log_command('', False, f"rm: Refusing to remove '{target}': it is dangerous")
-                continue
+                return f"rm: Refusing to remove '{target}': it is dangerous"
             if not os.path.exists(target):
                 print(f"rm: Cannot remove '{target}': No such file or directory")
-                log_command('', False, f"rm: cannot remove '{target}': No such file or directory")
-                continue
+                return "rm: Cannot remove '{target}': No such file or directory"
             if os.path.isdir(target) and not recursive:
                 print(f"rm: Cannot remove '{target}': is a directory (use -r to remove directories)")
-                log_command('', False, f"rm: cannot remove '{target}': is a directory (use -r to remove directories)")
-                continue
+                return f"rm: Cannot remove '{target}': is a directory (use -r to remove directories)"
             if os.path.isdir(target) and recursive: # Если это каталог и есть -r - запрашиваем подтверждение
                 confirm = input(f"rm: Remove directory '{target}' recursively? (y/n): ").strip().lower()
                 if confirm not in ('y', 'yes'):

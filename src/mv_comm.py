@@ -17,12 +17,10 @@ def mv(arguments):
         try:
             if not os.path.exists(source):
                 print(f"mv: Cannot stat '{source}': No such file or directory")
-                log_command('', False, f"mv: Cannot stat '{source}': No such file or directory")
-                continue
+                return f"mv: Cannot stat '{source}': No such file or directory"
             if not os.access(source, os.R_OK | os.W_OK): # Проверяем права на чтение и удаление источника
                 print(f"mv: Permission denied to access '{source}'")
-                log_command('', False, f"mv: Permission denied to access '{source}'")
-                continue
+                return f"mv: Permission denied to access '{source}'"
             if os.path.isdir(dest): # Если назначение — существующая директория — перемещаем внутрь
                 dest_path = os.path.join(dest, os.path.basename(source))
             else:
